@@ -1,0 +1,17 @@
+{
+  "name": "skills",
+  "skills": [
+    "./skills/authoring/write-skills",
+    "./skills/authoring/eval-skills",
+    "./skills/engineering/refactor-clean",
+    "./skills/engineering/feature-slicing",
+    "./skills/engineering/implement-spec",
+    "./skills/engineering/close-spec",
+    "./skills/engineering/codex",
+    "./skills/engineering/write-docs",
+    "./skills/graphics/renderer",
+    "./skills/visual/compare-screenshots",
+    "./skills/visual/screenshot-critique",
+    "./skills/visual/preview-shots"
+  ]
+}
