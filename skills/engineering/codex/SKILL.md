@@ -13,16 +13,9 @@ reports, own what it changes.
 
 When `codex` is missing from PATH, offer to install it — **ask the user for
 approval first**, never install on your own initiative. On yes, follow the
-current instructions at https://developers.openai.com/codex/cli (source of
-truth; check it if these go stale):
-
-- macOS/Linux standalone: `curl -fsSL https://chatgpt.com/codex/install.sh | sh`
-- npm and Homebrew installs are also documented on that page.
-
-After install, Codex must be authenticated before use — the first run prompts
-interactively (ChatGPT account or API key), so hand that step to the user
-rather than running it yourself. Verify with `codex --version` before
-proceeding.
+current instructions at https://developers.openai.com/codex/cli. First-run
+authentication is interactive — hand that step to the user. Verify with
+`codex --version` before proceeding.
 
 ## Review — proactive
 
