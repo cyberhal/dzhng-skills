@@ -35,9 +35,8 @@ wrong*, until the goal is done.
 
 ![A single autonomous run — 1 day, 16 hours pursuing one goal](assets/autonomous-run.png)
 
-> Proof: one unattended [duet](https://github.com/dzhng/duet-agent) run pursuing
-> a single goal for **1d 16h** on top of these skills, slicing and iterating
-> until done.
+> Proof: one unattended Codex run pursuing a single goal for **1d 16h** on top
+> of these skills, slicing and iterating until done.
 
 ## How to use
 
