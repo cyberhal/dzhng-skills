@@ -7,7 +7,7 @@
 **AI skills for building software factories.** My personal library of
 domain-agnostic agent skills, reused across every project. Small, composable,
 and hackable — works with any harness that supports skills: Claude Code, Codex,
-opencode, Cursor, [duet](https://github.com/dzhng/duet-agent), and
+opencode, Cursor, [duet](https://duet.so), and
 [70+ others](https://github.com/vercel-labs/skills).
 
 ```bash
