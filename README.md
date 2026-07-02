@@ -17,11 +17,31 @@ your own.
 
 ## Why these skills exist
 
-Coding agents are strong at writing code and weak at *process*. Left to their
-own devices they rush to a green checkmark, pile new code beside the old instead
-of replacing it, accept visual work on vibes, and let docs — and their own
-instructions — quietly rot. Each skill here encodes one piece of discipline that
-pushes back on a specific failure mode:
+Software development is moving to **factories and loops**. The unit of work is no
+longer a single task an agent completes and hands back — it's a *goal* that gets
+broken into many smaller tasks and pursued autonomously, iterating without a
+human in the loop until everything is done and the output is good enough to
+trust.
+
+That only works if each loop can judge its own output and keep going: implement a
+slice, verify it — including *visually*, against a baseline — decide whether it
+got less wrong or worse, and iterate until the result meets the goal. These
+skills are the discipline that makes those loops trustworthy. They let an agent
+break down any software product, build it slice by slice, visually verify the
+result, compare it against the target, and keep optimizing for *less wrong*
+until the final goal is met — not fire once and stop.
+
+![A single autonomous run — 1 day, 16 hours pursuing one goal](assets/autonomous-run.png)
+
+> Proof it works: a single unattended run in [duet](https://github.com/dzhng/duet-agent)
+> pursuing one goal for **1d 16h**, breaking it into steps and iterating on top
+> of these skills until done.
+
+Concretely, coding agents are strong at writing code and weak at *process*. Left
+to their own devices they rush to a green checkmark, pile new code beside the old
+instead of replacing it, accept visual work on vibes, and let docs — and their
+own instructions — quietly rot. Each skill here encodes one piece of discipline
+that pushes back on a specific failure mode:
 
 - **Rushing to "done."** [feature-slicing](skills/engineering/feature-slicing/SKILL.md),
   [implement-spec](skills/engineering/implement-spec/SKILL.md), and
