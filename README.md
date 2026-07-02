@@ -26,15 +26,40 @@ knowing where the pieces even are.
 
 These skills run that loop. Treat the unknown as **fog of war**: map the
 terrain, carve it into territories that build and verify in isolation, and
-recursively re-slice whatever hides more map. Every piece must prove itself —
-architecture review, code review, and visual review against a baseline — before
-the loop moves on. Each iteration gets *less wrong*, until the goal is done.
+recursively re-slice whatever hides more map. And re-planning doesn't stop when
+planning ends — the spec is a living document, updated and re-sliced
+mid-implementation whenever the work teaches the agent that the plan is stale.
+Every piece must prove itself — architecture review, code review, and visual
+review against a baseline — before the loop moves on. Each iteration gets *less
+wrong*, until the goal is done.
 
 ![A single autonomous run — 1 day, 16 hours pursuing one goal](assets/autonomous-run.png)
 
 > Proof: one unattended [duet](https://github.com/dzhng/duet-agent) run pursuing
 > a single goal for **1d 16h** on top of these skills, slicing and iterating
 > until done.
+
+## How to use
+
+1. **Plan.** Ask your agent to `/feature-slicing` the goal. It interviews you,
+   researches the unknowns, and materializes a spec under `specs/<feature>/` —
+   a slice graph where every slice is independently verifiable.
+
+2. **Build.** Kick off the loop:
+
+   ```
+   /goal /implement-spec specs/<feature>
+   ```
+
+   Add whatever framing fits: `on the xyz branch`, or `using /codex as the
+   implementer while you stay the parent orchestrator and reviewer`.
+
+3. **The rest fires on its own.** The spec tells the loop when to call the
+   other skills — `/refactor-clean` and a review pass at the end of every
+   slice, `/screenshot-critique` and `/compare-screenshots` on anything
+   visual, `/close-spec` when the last slice lands — and to update and
+   re-slice the plan whenever implementation proves it stale. Every skill is
+   also independently useful: invoke any of them manually whenever you want.
 
 ## Skills
 
