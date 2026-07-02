@@ -9,6 +9,21 @@ Codex is an independent agent on PATH (`codex`), sharing this working tree and
 already authenticated. It is a second opinion, not ground truth: verify what it
 reports, own what it changes.
 
+## If `codex` is not installed
+
+When `codex` is missing from PATH, offer to install it — **ask the user for
+approval first**, never install on your own initiative. On yes, follow the
+current instructions at https://developers.openai.com/codex/cli (source of
+truth; check it if these go stale):
+
+- macOS/Linux standalone: `curl -fsSL https://chatgpt.com/codex/install.sh | sh`
+- npm and Homebrew installs are also documented on that page.
+
+After install, Codex must be authenticated before use — the first run prompts
+interactively (ChatGPT account or API key), so hand that step to the user
+rather than running it yourself. Verify with `codex --version` before
+proceeding.
+
 ## Review — proactive
 
 Run a Codex review whenever you have a substantive diff you'd want a second set
