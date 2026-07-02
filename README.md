@@ -1,10 +1,8 @@
 # Skills
 
-**A personal library of composable agent skills — for disciplined engineering, not vibe coding.**
-
 [![skills.sh](https://skills.sh/b/dzhng/skills)](https://skills.sh/dzhng/skills)
 
-![Agent skills](assets/hero.png)
+![AI skills for building software factories](assets/hero.png)
 
 These are the general-purpose, domain-agnostic skills I reuse across every
 project. A skill is just a `SKILL.md`: frontmatter describing when the agent
