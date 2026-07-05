@@ -4,7 +4,7 @@
     "./skills/authoring/write-skills",
     "./skills/authoring/eval-skills",
     "./skills/engineering/refactor-clean",
-    "./skills/engineering/feature-slicing",
+    "./skills/engineering/write-spec",
     "./skills/engineering/implement-spec",
     "./skills/engineering/close-spec",
     "./skills/engineering/codex",

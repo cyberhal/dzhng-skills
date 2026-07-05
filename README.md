@@ -40,7 +40,7 @@ wrong*, until the goal is done.
 
 ## How to use
 
-1. **Plan.** Ask your agent to `/feature-slicing` the goal. It interviews you,
+1. **Plan.** Ask your agent to `/write-spec` the goal. It interviews you,
    researches the unknowns, and materializes a spec under `specs/<feature>/` —
    a slice graph where every slice is independently verifiable.
 
@@ -66,7 +66,7 @@ wrong*, until the goal is done.
 
 | Skill | What it does |
 |---|---|
-| [feature-slicing](skills/engineering/feature-slicing/SKILL.md) | Break a large feature into independently verifiable, human-reviewable slices with API seams and playable checkpoints. |
+| [write-spec](skills/engineering/write-spec/SKILL.md) | Break a large feature into independently verifiable, human-reviewable slices with API seams and playable checkpoints. |
 | [implement-spec](skills/engineering/implement-spec/SKILL.md) | Build an existing spec to completion, one reviewable pass at a time, delegating independent slices in parallel. |
 | [implement-spec-with-codex](skills/engineering/implement-spec-with-codex/SKILL.md) | Run implement-spec with Codex writing the code — you orchestrate, integrate, and review every pass. |
 | [close-spec](skills/engineering/close-spec/SKILL.md) | Archive a shipped spec and rewrite it from a build plan into a durable rationale record that points back at the code. |

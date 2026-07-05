@@ -1,9 +1,9 @@
 ---
-name: feature-slicing
+name: write-spec
 description: Break large features into independently verifiable, human-reviewable slices under specs/<feature>/. Use for risky or multi-step feature work that needs upfront questioning, API seams, browser-playable checkpoints, HTML visualizations, screenshot gates, staged implementation plans, recursive fog-of-war reslicing, or proactive research into reference implementations/best practices before slicing. Pairs with your project's verification harness and screenshot gates (the browser checkpoints), [refactor-clean](../refactor-clean/SKILL.md) (review the materialized spec so the plan describes one-owner architecture, not the feature bolted on), [screenshot-critique](../../visual/screenshot-critique/SKILL.md) and [compare-screenshots](../../visual/compare-screenshots/SKILL.md) (the visual gates), and a code-review pass (audit each slice before it lands).
 ---
 
-# Feature Slicing
+# Write Spec
 
 Turn a large feature into a ladder of small contracts. Each rung should be
 understandable to the human, testable by an agent, and useful before the
