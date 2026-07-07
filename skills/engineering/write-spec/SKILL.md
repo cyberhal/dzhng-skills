@@ -103,18 +103,17 @@ whole feature is done.
 
    Swap in or add lenses when the feature demands them (e.g. asset-pipeline
    bias, perf bias, migration-safety bias), but keep the biases orthogonal —
-   grow the pool by adding a new lens, never by running the same lens twice. Also **mix model
-   families**: if you're currently instructed to draft with codex, run at
-   least one draft with claude — and vice versa — so the pool balances
-   different models' blind spots, not just different prompts. Family means
-   vendor (claude vs codex), not tier: every draft uses a state-of-the-art
-   model; never diversify by dropping to a weaker tier of the same family.
-   Each drafter:
-   recon the real code and tests (measured facts, failed approaches, scope
-   firewalls, greppable file/test names), then propose the slice graph,
-   package/app boundaries, dependencies, API seams, playable deliverables,
-   verification gates, and human review checkpoints. Skip the fan-out only for
-   a genuinely single-slice problem.
+   grow the pool by adding a new lens, never by running the same lens twice.
+   Also **mix model families**: if you're currently instructed to draft with
+   codex, run at least one draft with claude — and vice versa — so the pool
+   balances different models' blind spots, not just different prompts. Family
+   means vendor (claude vs codex), not tier: every draft uses a
+   state-of-the-art model; never diversify by dropping to a weaker tier of the
+   same family. Each drafter: recon the real code and tests (measured facts,
+   failed approaches, scope firewalls, greppable file/test names), then propose
+   the slice graph, package/app boundaries, dependencies, API seams, playable
+   deliverables, verification gates, and human review checkpoints. Skip the
+   fan-out only for a genuinely single-slice problem.
 4. **Synthesize:** read every draft and build the canonical plan yourself —
    don't anoint one. Take the strongest slicing, union the seams, risks, and
    firewalls each caught alone, and where drafts disagree pick the
