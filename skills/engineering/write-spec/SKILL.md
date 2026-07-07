@@ -85,12 +85,15 @@ whole feature is done.
    standard, visual target, or performance pattern. Capture the discovered
    source/repo/article/paper links in the spec and turn any exemplar into a
    reproduction spike before a porting slice.
-3. **Draft in parallel:** for a multi-slice feature, spawn **three independent
-   subagents** to draft the whole plan — fresh context each, a git worktree
-   apiece if they must run or build to validate, otherwise have them return the
-   plan inline. Give each the *same* brief from the interview and nothing else
-   (never another draft) — but assign each a **distinct bias** so their
-   divergence is structured, not accidental. The default trio:
+3. **Draft in parallel:** for a multi-slice feature, spawn **at least three
+   independent subagents** to draft the whole plan — fresh context each, a git
+   worktree apiece if they must run or build to validate, otherwise have them
+   return the plan inline. Three is the floor, not the count: scale the pool
+   with the feature's complexity, adding a drafter for each genuinely distinct
+   approach or lens the problem supports. Give each the *same* brief from the
+   interview and nothing else (never another draft) — but assign each a
+   **distinct bias** so their divergence is structured, not accidental. The
+   baseline trio:
    - **A — fewest-slices bias:** the smallest ladder that still ships; merge
      slices aggressively, question every rung.
    - **B — risk-first bias:** front-load the scariest unknowns; order slices so
@@ -98,8 +101,9 @@ whole feature is done.
    - **C — seam-quality bias:** optimize API boundaries, ownership, and
      testability at each seam, even at the cost of more slices.
 
-   Swap in a different lens when the feature demands one (e.g. asset-pipeline
-   bias, perf bias), but keep the biases orthogonal. Also **mix model
+   Swap in or add lenses when the feature demands them (e.g. asset-pipeline
+   bias, perf bias, migration-safety bias), but keep the biases orthogonal —
+   grow the pool by adding a new lens, never by running the same lens twice. Also **mix model
    families**: if you're currently instructed to draft with codex, run at
    least one draft with claude — and vice versa — so the pool balances
    different models' blind spots, not just different prompts. Family means
