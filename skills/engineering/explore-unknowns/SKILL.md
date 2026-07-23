@@ -17,7 +17,7 @@ the user walks away holding the completed map. The map is the deliverable;
 implementation is a different task that starts only after the map is handed
 over.
 
-Two moves apply at every stage:
+Three moves apply at every stage:
 
 - **Reacting beats imagining.** Never ask the user to describe what they want
   when you can hand them something concrete to react to — a rendered option,
@@ -27,6 +27,10 @@ Two moves apply at every stage:
   next message pre-drafted: steal/skip chips, resonate checkboxes, a
   decisions table, a copyable sharpened prompt — so their reaction becomes
   their next message with near-zero typing.
+- **Claims are routed before they settle.** Intent goes to the map; territory
+  claims go to the [fact ledger](references/fact-ledger.md) and need evidence;
+  conjecture stays unverified. Facts, decisions, and progress never share a
+  ledger.
 
 ## The Quadrant Walk
 
@@ -38,7 +42,8 @@ front of you before opening the next.
 1. **[Known knowns](references/stage-1-known-knowns.md)** — scan the
    territory, then open with the settled ground.
 2. **[Known unknowns](references/stage-2-known-unknowns.md)** — the questions
-   you can name; resolve them one at a time.
+   you can name; resolve high-blast questions one at a time and batch related
+   leaf questions.
 3. **[Unknown knowns](references/stage-3-unknown-knowns.md)** — extract the
    taste and tacit context nobody has put into words.
 4. **[Unknown unknowns](references/stage-4-unknown-unknowns.md)** — sweep the
@@ -55,6 +60,11 @@ planning.
 - Walk the quadrants in order, one stage at a time, naming the current
   quadrant. The walk ends with the map in the user's hands — no map, not
   done.
+- When the project has `docs/plan/question-taste.md` or
+  `docs/plan/failure-log.md`, read them before the first question. Apply only
+  defaults the user previously confirmed, skip question types marked not worth
+  asking, and let recorded granularity evidence size questions still worth
+  asking.
 - Stages order the walk; they never embargo information. A finding that
   materially bears on a decision in flight is disclosed the moment you have
   it, then filed on the map under its quadrant — never held back for its
@@ -62,10 +72,13 @@ planning.
 - Nothing closes off-screen. Any question or judgment call the map records as
   closed must have been shown to the user first — including ones the
   territory answered.
-- Close items as decisions, not discussions. Each resolved unknown ends as a
-  one-line decision plus its why, phrased so the spec can carry it verbatim as
-  a given. Every choice a builder later invents unsupervised is an unknown
-  this walk missed — a map that leaves the implementer deciding is incomplete.
+- Silence is not confirmation. An assumption or recommended default the user
+  has not explicitly accepted remains provisional or OPEN on the map.
+- Close user-owned items as decisions, not discussions. Each ends as a one-line
+  decision plus its why, phrased so the spec can carry it verbatim as a given.
+  A territory-resolved item points to its fact-ledger entry instead. Every
+  choice a builder later invents unsupervised is an unknown this walk missed —
+  a map that leaves the implementer deciding is incomplete.
 - Claims about the territory cite real files actually read; invented data is
   labeled as such. A fabricated specific destroys the map's authority.
 - HTML artifacts are self-contained single files: inline CSS/JS, no external

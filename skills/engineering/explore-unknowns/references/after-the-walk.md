@@ -2,15 +2,15 @@
 
 The map lives on past planning. Three moves for the phases that follow.
 
-- **Implementation notes** (during the build) — keep a running log; every
-  time the code forces a deviation from the plan, record what the plan said,
-  what the code revealed, and the conservative call made, then keep going.
-  Tag entries that need the user's judgment. Each deviation is an unknown
-  unknown that escaped the walk — fold it back into the map for attempt #2.
+- **Implementation state** (during the build) — do not start a generic running
+  log. Current pickup and gates go in the durable handoff; unplanned decisions
+  go in `choices.md`; newly verified territory claims update the fact ledger
+  and any map entries they invalidate. A deviation can touch all three, but
+  each fact is recorded once in its owner.
 - **The buy-in doc** (before shipping) — other people inherit your unknowns;
-  package prototype, spec, and notes into one skimmable pitch that leads with
-  a demo, pre-answers each reviewer's objections with evidence, and names who
-  signs off on what.
+  use [review-guide](../../review-guide/SKILL.md) to re-synthesize prototype,
+  spec, decisions, and evidence for a named external reviewer. It is not a
+  second decision audit or a routine closeout artifact.
 - **Quiz before merge** (before merging someone else's or a long diff) — a
   merge-readiness report — mental model, non-obvious behaviors introduced,
   what to watch after deploy — ending in a quiz the user must pass; wrong

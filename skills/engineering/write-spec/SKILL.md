@@ -17,8 +17,10 @@ whole feature is done.
    answer with each question so the user can accept, reject, or edit it.
    Inspect the repo instead of asking questions the code can answer. Read
    `docs/plan/question-taste.md` and `docs/plan/failure-log.md` first when they
-   exist: inherit confirmed defaults and let prior granularity evidence inform
-   slice size.
+   exist: inherit persisted defaults and let prior granularity evidence inform
+   slice size. When an [explore-unknowns](../explore-unknowns/SKILL.md) map
+   exists, consume its fact ledger using the intake rules below before asking
+   anything it already settles.
    Close the interview by asking whether the plan must carry backward
    compatibility or data migrations — the default is **neither**: hard
    cutovers, no compat shims, no migration scaffolding, no deploy-order
@@ -92,9 +94,10 @@ whole feature is done.
 
 ## Workflow
 
-1. **Interview:** keep asking until you can name the slices without
-   hand-waving. Stop when remaining unknowns can safely be discovered by the
-   first slice.
+1. **Interview:** start from any upstream unknowns map and fact ledger, then
+   keep asking until you can name the slices without hand-waving. Do not re-ask
+   an explicitly accepted decision or a still-fresh verified fact. Stop when
+   remaining unknowns can safely be discovered by the first slice.
 2. **Research:** inspect the repo and research unfamiliar external practice
    before drafting when the feature names a reference, library, technique,
    standard, visual target, or performance pattern. Capture the discovered
@@ -194,15 +197,34 @@ whole feature is done.
    resume from the first new slice. Then continue. Reslicing is progress, not
    failure.
 
+## Upstream Fact Intake
+
+When exploration produced a map or fact ledger:
+
+1. Read each territory claim's state, evidence, scope, and freshness.
+2. Promote only relevant, still-fresh `verified` claims into spec context or
+   constraints, with a pointer to their evidence. Link to the source ledger
+   instead of copying its full inventory.
+3. Route `contradicted`, `unverified`, and `deferred` claims into known
+   unknowns, research spikes, or verification gates. Never turn them into
+   requirements or acceptance claims.
+4. Carry intent and accepted decisions from the map into the spec's decisions
+   and invariants. Do not put them in the fact ledger. Ignore progress/status;
+   the implementation handoff owns that later.
+
+Intake is done when every fact that materially shapes a slice is either
+evidence-backed in the spec or visibly unresolved with an owning discovery
+step.
+
 ## Plan Folder
 
 Use `specs/<feature>.md` only for a small, single-slice problem. Large
 features live in:
 
-- `specs/<feature>/README.md` — goal, context, slice graph, review map,
-  contracts, firewalls, known unknowns, and a "Next Agent Prompt" section with
-  the current status, next pickup point, global TODO checklist, and handoff
-  instructions for the next pass.
+- `specs/<feature>/README.md` — goal, context, source map/fact-ledger pointers,
+  slice graph, review map, contracts, firewalls, known unknowns, and a "Next
+  Agent Prompt" section with the current status, next pickup point, global TODO
+  checklist, and handoff instructions for the next pass.
 - `specs/<feature>/slices/<NN>-<name>.md` — one independently verifiable
   slice per file.
 - `specs/<feature>/visualizations/*.html` — roadmap diagrams, prototypes,

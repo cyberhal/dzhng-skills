@@ -67,8 +67,8 @@ Each iteration gets *less wrong*, until the goal is done.
 
 | Skill | What it does |
 |---|---|
-| [explore-unknowns](skills/engineering/explore-unknowns/SKILL.md) | Walk the user through mapping a task's unknowns quadrant by quadrant — known knowns first, then interviews, reactable artifacts, and blindspot passes — ending with a complete four-quadrant map. |
-| [write-spec](skills/engineering/write-spec/SKILL.md) | Break a large feature into independently verifiable slices with API seams, provisional risk, visual waves, and durable handoff state. |
+| [explore-unknowns](skills/engineering/explore-unknowns/SKILL.md) | Map a task's unknowns while separating verified territory facts, provisional conjecture, and user-owned decisions. |
+| [write-spec](skills/engineering/write-spec/SKILL.md) | Consume the unknowns map and verified facts, then slice the feature with API seams, provisional risk, visual waves, and durable handoff state. |
 | [implement-spec](skills/engineering/implement-spec/SKILL.md) | Build a spec to completion through risk-tiered passes, periodic durable handoffs, and optional fresh-session continuation. |
 | [implement-spec-with-codex](skills/engineering/implement-spec-with-codex/SKILL.md) | Run implement-spec with Codex writing the code — you orchestrate, integrate, and apply each pass's risk-tiered gates. |
 | [close-spec](skills/engineering/close-spec/SKILL.md) | Archive a shipped spec and rewrite it from a build plan into a durable rationale record that points back at the code. |

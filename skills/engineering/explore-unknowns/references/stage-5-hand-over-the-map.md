@@ -8,17 +8,20 @@ as one artifact the user keeps.
 One self-contained page holding all four quadrants:
 
 - **Known knowns** — the settled ground, with file citations.
-- **Known unknowns** — the decision ledger: every named question with its
-  answer and who closed it (user / territory / OPEN). OPEN items state what
-  unblocks them.
-- **Unknown knowns** — what got extracted: taste, consumers, environment,
-  tacit conventions, and what each reshaped.
-- **Unknown unknowns** — the landmine cards with evidence, each marked
-  decided, OPEN, or sharp-edge.
+- **Fact ledger** — every territory claim that shaped the map, with its state,
+  evidence, scope, and freshness. Only `verified` entries may appear as settled
+  ground; unresolved states remain visible.
+- **Known unknowns** — the resolution ledger: every named question and how it
+  closed. User-owned choices carry the decision and why; territory-resolved
+  rows point to their fact-ledger entry; OPEN rows state what unblocks them.
+- **Unknown knowns** — extracted user-owned intent, constraints, taste, and
+  what each reshaped; territory discoveries point to the fact ledger.
+- **Unknown unknowns** — each landmine's impact and closure: decided, OPEN, or
+  sharp-edge, with territory evidence referenced from the fact ledger.
 
-Anything still open lives on the map, not in scrollback. Small facts the
-builder must confirm before coding get their own list — they are map
-entries, not footnotes.
+Anything still open lives in its owner, not in scrollback. User choices remain
+OPEN on the map; territory claims still needing checks remain `unverified` or
+`deferred` in the fact ledger with their verification trigger.
 
 ## What rides along
 

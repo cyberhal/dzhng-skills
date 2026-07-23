@@ -14,19 +14,24 @@ the code the task will touch and turns silent traps into map entries.
    - **Half-built or reverted prior attempts** at the same job, and *why*
      they died — the reason is usually your landmine.
    - **Findings beyond the feature** — latent bugs the task's code path
-     inherits; escalate them to the map rather than silently absorbing them.
-2. Report each finding as a card: the **evidence** (file and line), **why it
-   bites**, and **what it changes** about the task. Worst first.
+     inherits; record the fact and expose its task impact rather than silently
+     absorbing it.
+2. Verify each territory finding in the
+   [fact ledger](fact-ledger.md), then report it as a card: the **evidence**
+   (file and line), **why it bites**, and **what it changes** about the task.
+   Worst first.
 3. A finding that needs a user decision closes like a stage-2 question:
    lettered options with your recommendation. A finding that only needs
-   awareness goes straight on the map as a sharp edge.
+   awareness stays owned by the fact ledger; the map references it as a sharp
+   edge instead of copying the claim.
 
 Remember the global rule: findings that bear on decisions already in flight
 should have been disclosed when found — this stage is where the *systematic*
 sweep happens, not where disclosures wait.
 
 **Done when** the sweep has covered the code the task will touch and every
-finding is on the map — decided, OPEN, or noted as a sharp edge.
+finding is routed once — decided or OPEN on the map, or verified in the fact
+ledger and referenced as a sharp edge.
 
 ## Technique
 

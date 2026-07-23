@@ -14,12 +14,15 @@ directly; asking "what do you want?" gets a shrug.
    inherits it.** Ask these deliberately — the decisive constraint usually
    arrives as a throwaway remark, and this probe is how you stop depending on
    luck.
-3. When an extracted fact reshapes earlier decisions, say so and update the
-   map — quadrants are a living record, not a script.
+3. Route each extracted answer: user intent, constraint, or taste updates the
+   map; a territory claim is verified in the
+   [fact ledger](fact-ledger.md). When either reshapes an earlier decision, say
+   so and update every dependent map entry — quadrants are a living record, not
+   a script.
 
 **Done when** the user has reacted to something concrete, the context probes
-are answered (or explicitly shrugged off), and the extracted answers are on
-the map.
+are answered (or explicitly shrugged off), and every extracted answer is
+routed to its one owner with dependent map entries updated.
 
 ## Techniques
 
