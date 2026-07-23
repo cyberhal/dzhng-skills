@@ -1,6 +1,6 @@
 ---
 name: close-spec
-description: When a spec under specs/<feature>/ is done shipping (a write-spec build, or any planned task that produced a spec), archive it to specs/done/ and rewrite it from a build-plan into a durable rationale — the why, the principles, the invariants — pointing back to the real code for the how. Use when implementation has landed and the plan no longer matches what shipped, or the user says a feature/spec is finished. Pairs with [write-spec](../write-spec/SKILL.md) (the plan this closes) and [review](../review/SKILL.md) (run before closing).
+description: When a spec under specs/FEATURE/ is done shipping (a write-spec build, or any planned task that produced a spec), archive it to specs/done/ and rewrite it from a build-plan into a durable rationale — the why, the principles, the invariants — pointing back to the real code for the how. Use when implementation has landed and the plan no longer matches what shipped, or the user says a feature/spec is finished. Pairs with write-spec (the plan this closes) and review (run before closing).
 ---
 
 # Close Spec
@@ -15,11 +15,19 @@ the source of truth for *why*, and a map into the code.
 Do not summarize the implementation. Anyone can read the code. If a paragraph
 restates what a function does, cut it and point at the function instead.
 
+This skill owns archival rationale only. Final code quality belongs to
+[review](../review/SKILL.md), current implementation decisions to
+[audit-choices](../audit-choices/SKILL.md), external approver context to
+[review-guide](../review-guide/SKILL.md), and future-task learning to
+[calibrate](../calibrate/SKILL.md). Closing does not rerun or substitute for
+any of them.
+
 ## Workflow
 
 1. **Confirm it shipped.** The feature is merged or working in-tree and its
-   tests/screenshot gates are green. If slices remain unverified, it isn't
-   done — finish or [review](../review/SKILL.md) first.
+   tests/screenshot gates are green, final integration review is clean, and
+   the choices ledger reflects shipped code. If slices remain unverified, it
+   is not done — return to implementation.
 
 2. **Diff plan against reality.** Read the spec's README and slices, then read
    what actually landed. Note every place the build diverged from the plan:

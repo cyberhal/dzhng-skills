@@ -38,9 +38,15 @@ never decide who is right.
    shift, clipped edge, unexpected blur, style mismatch — and decide which side
    is closer to correct. The answer can be the candidate, the baseline, both
    wrong, or a genuine toss-up.
-5. **Get a neutral second opinion** for disputed or high-stakes calls: a fresh
-   subagent given only the two images and neutral labels, per
-   `references/subagent-visual-review.md`.
+5. **Use the owning visual-wave reviewer** for disputed or high-stakes calls:
+   include the neutrally labelled pair in that wave's
+   [screenshot-critique](../screenshot-critique/SKILL.md) input and append one
+   neutral comparison request: state the target, treat A and B as unlabeled
+   candidates, confirm whether their captures are comparable, then say which is
+   less wrong against that target and why, with confidence. If this is a
+   standalone comparison with no owning wave, use one fresh subagent per
+   `references/subagent-visual-review.md`. Never start a second visual reviewer
+   for the same wave merely because telemetry and critique are separate skills.
 6. **Conclude with one verdict:** candidate is less wrong (accept, and re-bless
    the baseline if one exists), baseline is less wrong (reject), both wrong
    (another pass needed — say what's still off), or unclear (ask the user).

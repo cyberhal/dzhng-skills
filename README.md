@@ -29,9 +29,9 @@ terrain, carve it into territories that build and verify in isolation, and
 recursively re-slice whatever hides more map. And re-planning doesn't stop when
 planning ends — the spec is a living document, updated and re-sliced
 mid-implementation whenever the work teaches the agent that the plan is stale.
-Every piece must prove itself — architecture review, code review, and visual
-review against a baseline — before the loop moves on. Each iteration gets *less
-wrong*, until the goal is done.
+Every piece must prove itself with verification and review proportionate to its
+risk; related visual slices close as one review wave against a stated target.
+Each iteration gets *less wrong*, until the goal is done.
 
 ![A single autonomous run — 1 day, 16 hours pursuing one goal](assets/autonomous-run.png)
 
@@ -54,11 +54,12 @@ wrong*, until the goal is done.
    implementer while you stay the parent orchestrator and reviewer`.
 
 3. **The rest fires on its own.** The spec tells the loop when to call the
-   other skills — a `/review` pass at the end of every slice,
-   `/screenshot-critique` and `/compare-screenshots` on anything
-   visual, `/close-spec` when the last slice lands — and to update and
-   re-slice the plan whenever implementation proves it stale. Every skill is
-   also independently useful: invoke any of them manually whenever you want.
+   other skills — risk-tiered review for each pass, one
+   `/screenshot-critique` per integrated visual wave plus final integration,
+   `/compare-screenshots` where telemetry helps, and `/close-spec` when the
+   last slice lands — and to update and re-slice the plan whenever
+   implementation proves it stale. Every skill is also independently useful:
+   invoke any of them manually whenever you want.
 
 ## Skills
 
@@ -67,17 +68,19 @@ wrong*, until the goal is done.
 | Skill | What it does |
 |---|---|
 | [explore-unknowns](skills/engineering/explore-unknowns/SKILL.md) | Walk the user through mapping a task's unknowns quadrant by quadrant — known knowns first, then interviews, reactable artifacts, and blindspot passes — ending with a complete four-quadrant map. |
-| [write-spec](skills/engineering/write-spec/SKILL.md) | Break a large feature into independently verifiable, human-reviewable slices with API seams and playable checkpoints. |
-| [implement-spec](skills/engineering/implement-spec/SKILL.md) | Build an existing spec to completion, one reviewable pass at a time, delegating independent slices in parallel. |
-| [implement-spec-with-codex](skills/engineering/implement-spec-with-codex/SKILL.md) | Run implement-spec with Codex writing the code — you orchestrate, integrate, and review every pass. |
+| [write-spec](skills/engineering/write-spec/SKILL.md) | Break a large feature into independently verifiable slices with API seams, provisional risk, visual waves, and durable handoff state. |
+| [implement-spec](skills/engineering/implement-spec/SKILL.md) | Build a spec to completion through risk-tiered passes, periodic durable handoffs, and optional fresh-session continuation. |
+| [implement-spec-with-codex](skills/engineering/implement-spec-with-codex/SKILL.md) | Run implement-spec with Codex writing the code — you orchestrate, integrate, and apply each pass's risk-tiered gates. |
 | [close-spec](skills/engineering/close-spec/SKILL.md) | Archive a shipped spec and rewrite it from a build plan into a durable rationale record that points back at the code. |
+| [calibrate](skills/engineering/calibrate/SKILL.md) | Turn evidenced rework and corrected defaults into proposed cross-task calibration, persisted only after explicit confirmation. |
+| [review-guide](skills/engineering/review-guide/SKILL.md) | Transfer a finished change's decisions and evidence to a named external reviewer after final review is clean. |
 | [refactor-clean](skills/engineering/refactor-clean/SKILL.md) | Refactor by moving ownership to one clean concept instead of layering compatibility sediment beside the problem. |
 | [write-tests](skills/engineering/write-tests/SKILL.md) | Write tests one tracer bullet at a time that pin real behavior — not implementation details, config values, or lucky samples. |
 | [write-docs](skills/engineering/write-docs/SKILL.md) | Write docs as a glossary of principles and pointers, never a mirror of the code that will rot. |
 | [code-review](skills/engineering/code-review/SKILL.md) | Audit a diff for stale names, dead references, needless complexity, and comments that narrate instead of explain — ending on a clean/not-clean verdict. |
 | [audit-choices](skills/engineering/audit-choices/SKILL.md) | Audit the choices an implementer made, not its diff — a pure, never-blocking audit whose ledger discloses the architecture and decisions made on the user's behalf, reviewed instead of the code. |
-| [review](skills/engineering/review/SKILL.md) | Closeout a finished change as one pass — refactor-clean, then code-review, then write-docs — sequenced into a single verdict. |
-| [codex](skills/engineering/codex/SKILL.md) | Use the local Codex CLI as an independent second agent for review and (on explicit ask) delegated implementation. |
+| [review](skills/engineering/review/SKILL.md) | Run complete shape, independent diff, and docs review for a high-risk pass or final integration. |
+| [codex](skills/engineering/codex/SKILL.md) | Use the local Codex CLI as the selected independent review lane and, on explicit ask, a delegated implementer. |
 | [claude](skills/engineering/claude/SKILL.md) | Use Claude Code (`claude -p`) as an independent second agent for consultation and (on explicit ask) delegated implementation. |
 
 ### Visual review — never accept visuals on vibes
@@ -85,7 +88,7 @@ wrong*, until the goal is done.
 | Skill | What it does |
 |---|---|
 | [compare-screenshots](skills/visual/compare-screenshots/SKILL.md) | Judge which image is *less wrong* against a target you establish — telemetry to locate divergence, not a baseline match. Ships a reusable diff script. |
-| [screenshot-critique](skills/visual/screenshot-critique/SKILL.md) | Use an unprimed subagent as a second set of eyes on visual work before accepting it; mandatory before declaring a reported visual bug fixed. |
+| [screenshot-critique](skills/visual/screenshot-critique/SKILL.md) | Use one unprimed subagent at each integrated visual-wave boundary and once more at final integration. |
 | [preview-shots](skills/visual/preview-shots/SKILL.md) | Open a curated set of image shots in one macOS Preview window for the user to eyeball. |
 
 ### Authoring — keep the skills themselves sharp

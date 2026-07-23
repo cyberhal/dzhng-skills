@@ -230,8 +230,10 @@ this skill knows today's module layout.
 - Use metrics as telemetry: pixel diffs, grayscale, edge maps, luminance, and
   content counts can explain movement, but acceptance depends on named visual
   requirements and human readability.
-- If a visual change is disputed or subtle, run `screenshot-critique` with an
-  unprimed second pass before accepting it.
+- If a visual change is disputed or subtle, include its full shot and focused
+  crops in the owning wave's `screenshot-critique`; for standalone renderer
+  work with no wave, run one unprimed critique before accepting it. Do not add
+  a second visual reviewer to a wave.
 
 ## Common Failure Smells
 

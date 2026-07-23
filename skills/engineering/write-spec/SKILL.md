@@ -1,6 +1,6 @@
 ---
 name: write-spec
-description: Break large features into independently verifiable, human-reviewable slices under specs/<feature>/. Use for risky or multi-step feature work that needs upfront questioning, API seams, browser-playable checkpoints, HTML visualizations, screenshot gates, staged implementation plans, recursive fog-of-war reslicing, or proactive research into reference implementations/best practices before slicing. Pairs with your project's verification harness and screenshot gates (the browser checkpoints), [refactor-clean](../refactor-clean/SKILL.md) (review the materialized spec so the plan describes one-owner architecture, not the feature bolted on), [screenshot-critique](../../visual/screenshot-critique/SKILL.md) and [compare-screenshots](../../visual/compare-screenshots/SKILL.md) (the visual gates), and a code-review pass (audit each slice before it lands).
+description: Materialize a risky or multi-step implementation plan as independently verifiable, human-reviewable slices under specs/FEATURE/, with durable decisions and handoff state. Use when work needs upfront questioning, API seams, risk-tiered review, visual waves, staged implementation, recursive fog-of-war reslicing, or research before slicing.
 ---
 
 # Write Spec
@@ -15,7 +15,10 @@ whole feature is done.
    desired outcome, non-goals, review surface, sacred contracts, missing
    assets, and first useful playable checkpoint. Give your recommended
    answer with each question so the user can accept, reject, or edit it.
-   Inspect the repo instead of asking questions the code can answer.
+   Inspect the repo instead of asking questions the code can answer. Read
+   `docs/plan/question-taste.md` and `docs/plan/failure-log.md` first when they
+   exist: inherit confirmed defaults and let prior granularity evidence inform
+   slice size.
    Close the interview by asking whether the plan must carry backward
    compatibility or data migrations — the default is **neither**: hard
    cutovers, no compat shims, no migration scaffolding, no deploy-order
@@ -72,12 +75,20 @@ whole feature is done.
    implementation," reslice that subset and repeat until every next slice has
    one question, one seam, one review surface, and one verdict.
 
-10. **One visual variable per slice.** Visual slices fail when they ask one pass
-   to match the final hero image. Split by the thing being judged: density,
-   silhouette, colour, texture, lighting, fog, water placement, water material,
-   label legibility, animation rhythm. Each slice gets a crop/mask and a verdict
-   for that variable only. Whole-frame comparison belongs at compose/integration,
-   after the variables have their own evidence.
+10. **One visual variable per slice, one critique per wave.** Visual slices fail when they ask one pass
+    to match the final hero image. Split by the thing being judged: density,
+    silhouette, colour, texture, lighting, fog, water placement, water material,
+    label legibility, animation rhythm. Each slice gets a crop/mask and a verdict
+    for that variable only. Group related visual slices into coherent waves:
+    slices capture focused evidence, then the integrated wave gets one fresh
+    critique. Whole-frame comparison belongs at compose/integration, after the
+    variables have their own evidence.
+
+11. **Plan review by risk.** Every slice has a provisional low/medium/high risk
+    tier and the fact that sets it; execution confirms the tier from the actual
+    diff using [implement-spec](../implement-spec/SKILL.md)'s review budget.
+    Do not copy the whole risk matrix into each spec. Final integration always
+    gets one complete feature-wide review.
 
 ## Workflow
 
@@ -123,13 +134,14 @@ whole feature is done.
    firewalls each caught alone, and where drafts disagree pick the
    better-justified call and record the genuine alternative for the human. Where
    the drafts independently agree you're on firm ground; where they split is
-   where to think hardest. When the feature has any visual surface, make
-   [screenshot-critique](../../visual/screenshot-critique/SKILL.md) a standing
-   verification gate in the README so every visual slice inherits it: the spec
-   must tell the implementing agent to run an unbiased screenshot-critique as the
-   last check on any visual shot before accepting it. Whenever a slice has
+   where to think hardest. When the feature has any visual surface, partition
+   its slices into named visual waves and make
+   [screenshot-critique](../../visual/screenshot-critique/SKILL.md) one gate at
+   each wave boundary plus one at final integration. The slices collect the
+   comparable shots and crops; the wave gate supplies the unprimed second
+   opinion once the related changes are integrated. Whenever a slice has
    something to compare its shot against — a prior look it changes, or a
-   reference/inspiration image added for the feature — the spec must also name
+   reference/inspiration image added for the feature — the spec also names
    [compare-screenshots](../../visual/compare-screenshots/SKILL.md) as the gate
    that judges candidate-against-target: the telemetry and less-wrong verdict
    that screenshot-critique's single-shot eyes do not give.
@@ -216,12 +228,15 @@ Each slice file answers:
 - What is the API seam: module, functions/types, data shape, ownership?
 - What can the human run or see?
 - What tests, scenarios, screenshots, probes, or perf gates verify it?
-- If the slice produces any visual shot (screenshot, GIF, contact sheet, or
-  on-screen render), the slice file must instruct the implementing agent to run
-  [screenshot-critique](../../visual/screenshot-critique/SKILL.md) as the last
-  check before the slice is accepted — an unprimed second opinion the regression
-  gates and the implementer's own inspection cannot supply. Write this as an
-  explicit verification step in the slice, not as a passing mention.
+- What is its provisional review tier — low, medium, or high — and which
+  concrete risk sets that tier? If implementation expands the blast radius,
+  the implementing agent reclassifies upward from the actual diff.
+- If the slice produces a visual shot, which named visual wave owns it, which
+  full shot and crops it contributes, and whether it closes that wave? Only the
+  closing slice runs
+  [screenshot-critique](../../visual/screenshot-critique/SKILL.md) over the
+  integrated wave; do not schedule one fresh critique per slice. The final
+  integrated visual state receives one additional critique.
 - If the slice's shot has a target to compare against — a prior look it changes,
   or a reference/inspiration image added for the feature — the slice file must
   also instruct the agent to use
@@ -259,14 +274,19 @@ the section itself must directly tell the next agent what to do next. It should
 include:
 
 - Current status and last-updated date.
-- The exact next pickup point.
+- Branch/base, current commit, and any uncommitted state.
+- Completed slices and the exact next pickup point.
+- Locked decisions, defaults, and plan deviations the next agent must inherit.
+- Gates run and current evidence.
 - Active blockers or warnings.
 - A global TODO checklist, with each item pointing to the owning slice.
-- A direct instruction to the next agent to update this section before ending
-  their pass.
+- A direct instruction to update compact status after every pass and refresh
+  this full handoff after every two or three completed slices, or sooner after
+  a red pass, rebase, resume, compaction, or feature-area change.
 
 The point is that a fresh agent can open the README and know what to do next
-without reading the chat.
+without reading the chat. A fresh session may take over at a durable handoff;
+the section is pickup state, not a transcript.
 
 ## Done
 

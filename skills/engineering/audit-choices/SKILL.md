@@ -29,6 +29,11 @@ point. Acting on the verdicts (redoing an unsound choice, applying a
 provisional call) belongs to the caller: the implementing workflow mid-run,
 or the user after reading the report.
 
+Its boundary is strict: [review](../review/SKILL.md) owns code quality,
+[review-guide](../review-guide/SKILL.md) owns context for an external
+approver, and [calibrate](../calibrate/SKILL.md) owns future-task learning
+from evidenced rework. Do not turn one choices audit into any of those jobs.
+
 Two ways in, same audit:
 
 - **Called by a workflow** (per pass or per slice): audit that pass, append

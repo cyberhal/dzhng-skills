@@ -1,6 +1,6 @@
 ---
 name: implement-spec
-description: Implement an existing spec through committed passes. Use for long or multi-pass specs that need maintenance checkpoints to periodically clean code, handoffs, priorities, and plan bloat before drift accumulates.
+description: Implement an existing spec to completion through committed, independently verified passes while maintaining its decision ledger and living handoff. Use for long or multi-pass specs that need parallel slices, maintenance checkpoints, risk-tiered review, visual-wave gates, or fresh-session continuation before context drift accumulates.
 ---
 
 # Implement Spec
@@ -25,25 +25,28 @@ depends on prior work.
 
 1. Read the repo README, the spec README, and the next slice before editing.
    Load any skills named by the spec. Identify the current pickup point, global
-   TODOs, required gates, and what must stay green. If a multi-slice spec lacks
-   a live handoff prompt, add one before the first pass ends.
+   TODOs, required gates, and what must stay green. Give the pass a provisional
+   risk tier using step 6. If a multi-slice spec lacks a live handoff prompt,
+   add one before the first pass ends.
 2. Reconcile the plan with the current code. If the slice would preserve a
    development-only shim, duplicated type, weak wrapper, or obsolete path,
    replace it with the simpler architecture and update the spec handoff.
+   Type every newly exposed unknown before acting: verify a code fact against
+   the territory; ask or default a product semantic, compatibility edge, or
+   failure policy according to flip cost; follow repo convention for a
+   low-cost detail. Record defaults that future passes must inherit.
 3. Implement one coherent pass: usually one slice, one vertical checkpoint, or
    one architecture correction. Keep the review surface small enough to audit.
 4. Verify the actual contract. For behavior changes, run the focused unit tests
    first; for browser-visible work, use the real browser/harness and inspect
    screenshots so the subject is framed and readable, not merely nonblank.
-   A visual CHANGE carries two extra proofs before you claim it: a
-   byte/pixel diff against the pre-change baseline on the production route
-   (static checks and re-anchored assertions all pass on a no-op — a
-   palette pass once shipped "verified" while the production frame was
-   byte-identical), and an unprimed
-   [screenshot-critique](../../visual/screenshot-critique/SKILL.md) — at the
-   user's reported framing when the pass answers their visual bug report —
-   before declaring it fixed; the implementer's eyes are primed by the fix
-   and repeatedly pass what fresh eyes catch.
+   A visual change also needs a byte/pixel diff against the pre-change baseline
+   on the production route and current candidate captures for its visual wave;
+   include the user's reported framing when the work answers their bug report.
+   The independent visual critique happens once at the wave boundary in step 7,
+   not once per slice. A claim of passing requires the verifying command run in
+   this pass with its output in hand — “should pass,” a previous run, or a
+   delegate's report never substitutes.
    Never weaken an existing default gate or repin a failing contract without
    proving the old contract is wrong.
 5. **Review the change list and clean up after every pass, before committing.**
@@ -54,62 +57,85 @@ depends on prior work.
    deleted. A file you can't name the durable purpose of does not ship.
    Delegated agents leak these; the integrating reviewer re-checks the merged
    tree with the same eye.
-6. Run [review](../review/SKILL.md) at the end of every pass, before committing.
-   It sequences the three closeout lenses — refactor-clean on the shape,
-   code-review on the settled diff, write-docs on what the change touched — and
-   you apply the fixes from all three. Long specs are where sediment compounds,
-   so hold the shape pass to this pass's own output: dev-only shims, duplicated
-   concepts, parallel abstractions, and compatibility wrappers it introduced
-   collapse into the clean contract with one owner, so the code reads as designed
-   today, not tacked on. Last, run
-   [audit-choices](../audit-choices/SKILL.md) on the cleaned pass — a pure
-   audit that appends every decision made where the spec was silent (your own,
-   and each delegated subagent's when integrating) to the spec's choices
-   ledger (`specs/<feature>/choices.md`) with verdicts, changing no code
-   itself. You act on its findings: redo unsound choices from their corrected
-   decisions, adopt the recorded provisional call on any user-only entry — the
-   audit never blocks the run. Rerun the affected checks, then commit only the
-   focused changes from this pass.
-7. Update the spec README's "Next Agent Prompt": status, completed work, next
-   pickup point, blockers, changed gates, and any architecture decision that
-   changed the plan.
-8. Run a **maintenance checkpoint** as part of the loop, not as endgame cleanup.
-   Trigger it after a red pass, after every two or three slice commits, after a
-   rebase/resume/compaction, before changing feature areas, when evidence
-   invalidates the plan, when the handoff contradicts the TODO/graph, when the
-   choices ledger's entries cluster around one slice, or when the
-   active prompt grows hard to scan. Long specs bloat repeatedly; cleanup is a
-   normal pass, not a cosmetic chore.
+6. **Confirm the pass risk from the actual diff, then spend one review budget.**
+   Classify upward when uncertain; a delegated implementer never counts as the
+   independent reviewer.
+   - **Low risk** — mechanical, local, reversible work with no shared behavior,
+     persistent data, security boundary, or public contract. Run focused gates
+     and a local diff/shape/docs check. Do **not** start an independent reviewer.
+   - **Medium risk** — bounded behavior, UI, internal API, or nontrivial logic
+     whose failure is contained and reversible. Choose exactly one independent lane:
+     either one fresh subagent following
+     [code-review](../code-review/SKILL.md), or one
+     [Codex review](../codex/SKILL.md). Never stack both.
+   - **High risk** — security, auth, privacy, permissions, destructive or
+     persistent data changes, migrations, public/external contracts or
+     compatibility, cross-service contracts, concurrency/safety invariants,
+     hard rollback, or broad blast radius. Run the complete
+     [review](../review/SKILL.md); its diff lens uses
+     exactly one independent lane, fresh subagent or Codex, not both.
 
-   A checkpoint cleans both plan and code before more feature work:
-   - Shorten the README handoff to one current pickup, one priority order, and
-     one compact evidence ledger; move play-by-play into slice files or assets.
-   - Correct completed/rejected/next markers; delete stale TODOs, stale
-     acceptance claims, duplicated status sections, and obsolete prompts.
-   - Re-rank remaining work so the next red/high-risk contract is explicit, and
-     demote branches that are not on that path.
-   - Reslice any still-red, overloaded, or foggy slice into smaller independently
-     verifiable passes before implementing past it.
-   - Delete or collapse scaffolding from earlier passes when it no longer owns a
-     real contract.
-   - If the work feels off-track, ask a fresh review/subagent to audit spec shape
-     and priority order, then apply the fixes.
+   Apply every accepted finding, state why any finding is dismissed, rerun
+   affected checks, and repeat only the narrowed failed lens — not the entire
+   reviewer stack.
+7. **Close a visual wave once.** When this pass integrates the last slice in a
+   coherent visual wave, run one unprimed
+   [screenshot-critique](../../visual/screenshot-critique/SKILL.md) over the
+   wave's current full shots and key crops. Do not run a fresh critique for
+   every contributing slice. Apply its actionable findings and rerun affected
+   gates before accepting the wave. A user-reported visual bug is not “fixed”
+   before this wave gate passes.
+8. Run [audit-choices](../audit-choices/SKILL.md) on decisions introduced by
+   this pass where the spec was silent, including delegated agents' decisions
+   found during integration. Append only those choices to
+   `specs/<feature>/choices.md`; the audit changes no code. Redo unsound choices
+   from their corrected decisions and take the reversible provisional call for
+   needs-user entries without blocking the run. Rerun affected checks, then
+   commit only the focused changes from this pass.
+9. **Maintain the durable handoff at two resolutions.** After every pass,
+   update its compact status, completed commit, gate result, and exact next
+   pickup. After every two or three completed slice commits — or sooner after a
+   red pass, rebase, resume, compaction, feature-area change, or contradicted
+   plan — rewrite the full “Next Agent Prompt” with:
+   - branch/base and current commit;
+   - completed slices and exact next slice;
+   - locked decisions, defaults, and plan deviations;
+   - gates run with current evidence;
+   - blockers, warnings, and any uncommitted state.
 
-   Commit the checkpoint as its own focused pass when cleanup changes the spec,
-   code shape, or handoff enough that future agents would otherwise inherit stale
-   context. It is done only when a fresh agent can read the README handoff, TODO,
-   and slice graph and choose the same next action without conversation history.
-9. **Continue.** If any slice or global TODO is still open, go straight back to
-   step 1 for the next one — same session, no pause for acknowledgement. Keep
-   looping until every TODO is closed.
-10. **Run [review](../review/SKILL.md) once more over the whole spec.** The
-   per-pass reviews each judged one slice against the code as it stood then; this
-   one judges the finished feature. Scope it to the spec's full diff, not the last
-   pass — that is the only scope where duplication spread across slices, a shape
-   that only reads wrong once every slice has landed, and docs that describe
-   increments instead of the feature are visible at all. Apply the fixes, rerun
-   the gates, commit.
-11. **Consolidate the choices ledger, then close.** When the last slice lands, the
+   This is pickup state, not a transcript. It is durable only when a fresh
+   agent can choose the same next action without conversation history.
+10. Run a **maintenance checkpoint** with each full handoff refresh. Clean both
+    plan and code before more feature work:
+    - Keep one current pickup, one priority order, and one compact evidence
+      ledger; move play-by-play into slice files or assets.
+    - Correct completed/rejected/next markers; delete stale TODOs, acceptance
+      claims, duplicated status sections, and obsolete prompts.
+    - Re-rank remaining work so the next red/high-risk contract is explicit.
+    - Reslice any still-red, overloaded, or foggy slice before implementing
+      past it.
+    - Delete or collapse scaffolding that no longer owns a real contract.
+
+    Commit the checkpoint as a focused pass when it materially changes the
+    spec, code shape, or pickup state. If context is compacted or costly to
+    reconstruct, the work changes feature area, or the current session's
+    mental model conflicts with durable state, let a fresh session continue
+    from this checkpoint when the harness supports it. Session turnover is
+    continuation, not task completion; the next session re-reads the handoff
+    instead of inheriting oral history.
+11. **Continue.** If any slice or global TODO is open, return to step 1 in the
+    current or fresh session without pausing for acknowledgement. Keep looping
+    until every TODO is closed.
+12. **Run final integration once.** Run complete
+    [review](../review/SKILL.md) over the spec's full diff, even when every
+    individual pass was low or medium risk. This is the only scope where
+    cross-slice duplication, emergent shape problems, and increment-shaped docs
+    are visible. If the feature has a visual surface, run one final
+    [screenshot-critique](../../visual/screenshot-critique/SKILL.md) over the
+    integrated final state, separate from the last wave critique. Apply fixes,
+    rerun gates, and commit.
+13. **Consolidate the choices ledger, then route closeout by owner.** When the
+   last slice lands, the
    `choices.md` you've been appending to per pass is build-order sediment: entries
    banked early carry "provisional — revisit in slice N" verdicts that a later pass
    silently resolved, entries a later pass reverted still sit there, and the same
@@ -123,7 +149,17 @@ depends on prior work.
    review-finding narration; those are reported elsewhere and are not decisions the
    user now owns. Present it per [audit-choices](../audit-choices/SKILL.md): grouped
    by verdict, ranked least-confident-first, every entry ELI5 and standalone.
-   *Then* close the spec with [close-spec](../close-spec/SKILL.md).
+   Then:
+   - use [review-guide](../review-guide/SKILL.md) only when a named external
+     approver or explicit reviewer handoff requires it;
+   - archive the implementation rationale with
+     [close-spec](../close-spec/SKILL.md);
+   - offer [calibrate](../calibrate/SKILL.md) separately only when durable
+     evidence shows avoidable rework or a corrected default.
+
+   These are not three closeout reviews: `audit-choices` owns current decisions,
+   `review-guide` owns external reviewer context, and `calibrate` owns future
+   task learning. None substitutes for or repeats another.
 
 ## Rules
 
@@ -135,7 +171,7 @@ depends on prior work.
   each subagent its own git worktree when they touch files in parallel so their
   diffs don't collide, and keep work that shares the same files or API seam on a
   single agent to avoid merge chaos. Each delegated unit still owns its full pass
-  — implement, verify, review, focused commit — and you integrate
+  — implement, verify, risk-tiered review gate, focused commit — and you integrate
   the results, resolve conflicts, rerun the affected gates on the merged tree, and
   keep the Next Agent Prompt coherent. Only serialize what the graph says must be
   serial; never idle a lane waiting on an unrelated one.
@@ -147,13 +183,14 @@ depends on prior work.
 - Commit every clean pass, then immediately begin the next one. A green commit is
   a checkpoint, not permission to stop. If a pass is not green, do not commit it
   as finished; report the failing contract and exact evidence.
-- Do not stop while work remains. "Slice N is done and committed" is not a
+- Do not declare completion while work remains. "Slice N is done and committed" is not a
   finished task while later slices or TODOs are open — a single completed slice is
-  a reason to continue, never to hand back. The only legitimate early stops are: a
+  a reason to continue, never to hand back as done. The only legitimate early stops are: a
   hard blocker that needs a user-only decision, a gate that cannot be made green
-  with an honest fix, or the user interrupting. Running low on context is not a
-  stop — update the handoff and keep going. When you must stop, say exactly which
-  slice is next and why you paused.
+  with an honest fix, or the user interrupting. Context pressure is a reason to
+  refresh the durable handoff and transfer to a fresh session when supported,
+  not to abandon the goal. When you must pause, record exactly which slice is
+  next and why.
 - Keep visual evidence honest: contact sheets, GIFs, screenshots, and
   baselines must show the thing being judged at the intended camera/framing.
 - Sweep every user-visible surface implied by the slice. A model, state, or
@@ -179,21 +216,22 @@ depends on prior work.
 
 ## Done
 
-A **pass** is done when code, spec handoff, verification evidence, review
-cleanup, and a focused commit all agree on the same current truth — then you
-start the next pass.
+A **pass** is done when code, compact handoff status, verification evidence,
+its risk-tiered review gate, and a focused commit all agree on the same current
+truth — then you start the next pass.
 
 The **spec** is done — and only then is this skill done — when every slice and
-global TODO is closed, all gates are green, the whole-spec review has run and its
-fixes have landed, the handoff shows nothing left to pick up, and the spec has
-been archived with [close-spec](../close-spec/SKILL.md).
+global TODO is closed, all gates are green, final integration review and any
+final visual critique have run and their fixes have landed, the handoff shows
+nothing left to pick up, and the spec has been archived with
+[close-spec](../close-spec/SKILL.md).
 Anything short of that is mid-implementation: keep going.
 
 The final handback presents the choices ledger, not the diff, per
 [audit-choices](../audit-choices/SKILL.md) — a days-long unsupervised run
 earns its merge through this ledger; it is the user's review surface for
 everything decided without them. Hand over the **consolidated** ledger from
-step 11 (final state, verified against shipped code, choices only), never the
+step 13 (final state, verified against shipped code, choices only), never the
 raw per-pass append — a ledger still carrying "will be done in a later slice"
 verdicts tells the user you never went back to confirm it was.
 

@@ -1,6 +1,6 @@
 ---
 name: codex
-description: Use the local Codex CLI as an independent second agent. Two branches — (1) proactively run `codex review` for a second opinion after completing a substantive change, before presenting it as done or committing; (2) delegate a well-defined implementation task via `codex exec`, ONLY when the user explicitly asks for Codex to do it. Also covers how to prompt Codex.
+description: Use the local Codex CLI as an independent second agent. Two branches — (1) run `codex review` when a risk-tiered workflow or the user selects Codex as the one independent review lane; (2) delegate a well-defined implementation task via `codex exec`, only when the user explicitly asks for Codex to do it. Also covers how to prompt Codex.
 ---
 
 # Codex
@@ -47,20 +47,30 @@ raising `--effort`.
   back"), "think harder" in place of a contract, mixing jobs in one run, and
   demanding certainty the evidence can't support.
 
-## Review — proactive
+## Review — selected lane
 
-Run a Codex review whenever you have a substantive diff you'd want a second set
-of eyes on — a refactor, a tricky algorithm, renderer work, a security-sensitive
-change — before declaring it done or committing. Skip it for trivial edits
-(typos, comments, doc-only).
+Run a Codex review when the caller selects it as the independent lane for a
+medium/high-risk pass, final integration, or an explicit user request. Do not
+add Codex after a fresh subagent already reviewed the same scope; they are
+alternatives, not cumulative gates. Low-risk work defaults to local checks, but
+an explicit user request for Codex overrides that default.
 
-1. Pick the diff scope: `codex review --uncommitted` for working-tree changes,
+1. Pick and freeze the diff scope: `codex review --uncommitted` for
+   working-tree changes,
    `--base <branch>` for a branch diff, `--commit <sha>` for a landed commit.
    Scope flags and custom instructions are mutually exclusive (despite what
    `--help` implies): `codex review "<instructions>"` reviews the default
-   scope with your framing, a scope flag takes no prompt. When you do write
-   instructions, scope the risk area — never state the answer you expect
-   (unprimed, same discipline as
+   scope with your framing, while a scope flag takes no prompt.
+   - When the scope flag alone expresses the contract, use `codex review`.
+   - When a committed base/head range also needs contract or risk framing, use
+     `codex exec --sandbox read-only -C <repo-root> "<review task>"` as the
+     review lane. Pin resolved base and head commit SHAs in the prompt, tell it
+     to follow [code-review](../code-review/SKILL.md), inspect that exact range,
+     make no edits, and return findings with file/line evidence and a verdict.
+     This is read-only review, not delegated implementation.
+
+   When you write framing, name risk areas without stating the answer you
+   expect (unprimed, like
    [screenshot-critique](../../visual/screenshot-critique/SKILL.md)).
 2. Triage every finding: confirm it against the code before acting. Preserve
    Codex's evidence boundaries — an inference it labelled is not a fact.

@@ -19,7 +19,7 @@ skill IS the explicit ask that authorizes `codex exec` delegation under the
   subagents.
 - **You orchestrate and review.** The spec loop stays yours: pick the next
   slice, reconcile plan with code, author each prompt end-to-end, integrate
-  diffs, run the gates, review the merged tree, commit,
+  diffs, run the gates, apply the pass's risk-tiered review budget, commit,
   update the handoff, run maintenance checkpoints. None of that delegates.
 
 Keep a pass yourself only when slicing it sharply would cost more than doing
@@ -29,10 +29,15 @@ it — tiny fixups, plan reconciliation, integration conflicts.
 
 - You own every result: read the full diff and run the verification yourself.
   "Codex says it's done" is never done.
-- Visual results carry implement-spec's two extra proofs (production-route
-  pixel diff + unprimed critique) with double force here: a sandboxed Codex
-  never saw its change render, so a pass that misses the production render
-  path entirely arrives looking fully "verified".
+- The Codex implementation session is not an independent reviewer. For a
+  medium/high-risk pass, choose exactly one fresh review lane per
+  implement-spec: a fresh subagent, or a separate unprimed Codex review run.
+  Do not stack both.
+- Visual results carry implement-spec's production-route pixel proof per slice
+  and one unprimed critique per integrated visual wave, plus final integration.
+  This matters with double force here: a sandboxed Codex never saw its change
+  render, so a pass that misses the production render path can arrive looking
+  fully “verified.”
 - A sandboxed Codex ships code it never saw run — browser-verify every visual
   slice yourself and budget fix rounds. Send a red gate back as a resumed
   follow-up with the failing evidence; fix it yourself only when that's

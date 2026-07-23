@@ -1,22 +1,24 @@
 ---
 name: screenshot-critique
-description: Use the unprimed sub agent as a second set of eyes before accepting visual work — MANDATORY before declaring any user-reported visual bug fixed or claiming a visual change verified; primed eyes pass defects fresh eyes catch.
+description: Use one unprimed subagent as a second set of eyes at a visual-wave boundary or final integration. Mandatory before accepting an integrated visual wave, before declaring a user-reported visual bug fixed, and once more on the final integrated visual state; do not run a fresh critique for every contributing slice.
 ---
 
 # Screenshot Critique
 
-Use an unprimed sub-agent as a second set of eyes before accepting visual work.
-This is for visual defects, not pixel metrics; pair it with
-`compare-screenshots` when you also need numbers.
+Use one unprimed subagent as a second set of eyes after related visual slices
+have been integrated into a coherent wave. This is for visual defects, not
+pixel metrics; pair it with `compare-screenshots` when you also need numbers.
 
 ## Workflow
 
-1. Capture or locate the exact PNGs/GIF frames under review.
-2. Create tight 2x-4x crops for every key feature under judgment, plus the full
-   screenshot for context. Crop selected units, city/town stacks, flags/poles,
-   shadows, selection rings, labels/icons, roads, terrain features, water, and
-   any artifact-prone area. If the complaint is about "too faint", "wrong
-   order", or "not in perspective", the crop is mandatory.
+1. Fix the review scope: one integrated visual wave, or the final integrated
+   visual state. Capture or locate its current PNGs/GIF frames; include the
+   reporter's framing when the wave answers a user-reported bug.
+2. Create tight 2x-4x crops for every key feature changed in the wave, plus the
+   full screenshot for context. Crop selected units, city/town stacks,
+   flags/poles, shadows, selection rings, labels/icons, roads, terrain
+   features, water, and any artifact-prone area. If the complaint is about
+   "too faint", "wrong order", or "not in perspective", the crop is mandatory.
 3. Spawn one fresh explorer with `fork_context: false`; pass only the full
    images, the crops, and a short neutral task. Do not include the main thread
    history, implementation details, or expected answer.
@@ -28,8 +30,8 @@ This is for visual defects, not pixel metrics; pair it with
 5. Compare the sub-agent's critique against your own inspection. Treat overlap
    as high-priority evidence. Treat novel high-confidence findings as bugs to
    inspect, not as taste notes to dismiss.
-6. Record actionable findings in the spec, visual report, or next task plan
-   before claiming the screenshot is accepted.
+6. Record actionable findings against the owning wave in the spec, visual
+   report, or next task plan before accepting it.
 
 ## Sub-Agent Prompt
 
@@ -57,12 +59,16 @@ Spawn config:
 
 ## Rules
 
+- **One per wave, one at final integration.** Contributing slices collect
+  honest shots and focused comparison evidence; they do not each spawn a fresh
+  critic. Run this skill after the coherent visual wave is integrated, then
+  once more over the feature's final visual state. The final-integration
+  critique is a distinct feature-wide pass even when the last visual wave just
+  closed.
 - **Mandatory before "fixed":** never declare a user-reported visual bug fixed
-  on your own inspection — your eyes are primed by the fix you just made. Run
-  the unprimed critique on the candidate shot first; "mild residue" you are
-  tempted to wave through is exactly what it exists to catch. (Recorded
-  failure: a "fixed" sky that an unprimed agent identified as the terrain
-  mesh's underside filling the entire sky region.)
+  on the implementer's inspection. Include it in the next wave-boundary
+  critique; “mild residue” the primed implementer is tempted to waive is
+  exactly what fresh eyes catch.
 - **Reproduce the reporter's framing.** When the user supplied a screenshot,
   the critique must include a capture at that framing (same camera/zoom/spot,
   or as close as reproducible) — a defect that lives at their framing can be
@@ -88,4 +94,4 @@ Spawn config:
 - A passing sub-agent critique does not replace direct inspection by the main
   agent or screenshot regression gates.
 - If the sub-agent catches an issue the main agent missed, add that failure mode
-  to the relevant feature plan or visual checklist immediately.
+  to the relevant wave evidence or feature plan immediately.
